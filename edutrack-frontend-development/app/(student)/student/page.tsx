@@ -60,21 +60,24 @@ export default function StudentDashboardPage() {
   const topStrengths = ranked.filter((d) => student.scores[d.key] >= STRONG_THRESHOLD).reverse()
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 space-y-6 sm:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-6 space-y-6 sm:px-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
       {/* 1. STUDENT PROFILE HERO CARD */}
-      <Card className="overflow-hidden border-primary/20 bg-gradient-to-r from-card via-card to-primary/5 p-6 shadow-md">
+      <Card className="overflow-hidden border-primary/20 bg-gradient-to-r from-card via-card to-primary/5 p-6 shadow-md transition-all duration-300 hover:shadow-lg">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-            <StudentAvatar student={student} size="lg" />
-            <div className="space-y-1">
+            <StudentAvatar student={student} size="xl" />
+            <div className="space-y-1.5">
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-foreground">
                   {student.name}
                 </h1>
+                <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 border border-primary/20 px-2.5 py-0.5 text-xs font-bold text-primary">
+                  {student.gender === "female" ? "Female 👧" : "Male 👦"}
+                </span>
                 <span
                   className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-0.5 text-xs font-semibold uppercase tracking-wide ${RISK_META[risk].tw}`}
                 >
-                  <span className={`size-2 rounded-full ${RISK_META[risk].dot}`} aria-hidden />
+                  <span className={`size-2 rounded-full ${RISK_META[risk].dot} animate-pulse`} aria-hidden />
                   {RISK_META[risk].label}
                 </span>
               </div>

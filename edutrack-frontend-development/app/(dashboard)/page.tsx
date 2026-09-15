@@ -69,6 +69,7 @@ export default function DashboardPage() {
   const [addStudentSuccess, setAddStudentSuccess] = useState<string | null>(null)
   const [newStudentForm, setNewStudentForm] = useState({
     name: "",
+    gender: "female" as "female" | "male",
     grade: "Grade 8",
     age: 13,
     guardian: "",
@@ -154,6 +155,7 @@ export default function DashboardPage() {
 
     const addedLocal = addStudentToStore({
       name: newStudentForm.name,
+      gender: newStudentForm.gender,
       grade: newStudentForm.grade,
       age: Number(newStudentForm.age),
       guardian: newStudentForm.guardian,
@@ -176,6 +178,7 @@ export default function DashboardPage() {
     setIsAddStudentOpen(false)
     setNewStudentForm({
       name: "",
+      gender: "female",
       grade: "Grade 8",
       age: 13,
       guardian: "",
@@ -714,6 +717,18 @@ export default function DashboardPage() {
                     placeholder="e.g. Diya Patel"
                     className="w-full h-10 rounded-lg border border-border bg-card px-3 text-sm outline-none focus:ring-2 focus:ring-primary/40"
                   />
+                </div>
+
+                <div>
+                  <label className="font-medium text-foreground block mb-1">Gender *</label>
+                  <select
+                    value={newStudentForm.gender}
+                    onChange={(e) => setNewStudentForm({ ...newStudentForm, gender: e.target.value as "female" | "male" })}
+                    className="w-full h-10 rounded-lg border border-border bg-card px-3 text-sm outline-none focus:ring-2 focus:ring-primary/40"
+                  >
+                    <option value="female">Female 👧</option>
+                    <option value="male">Male 👦</option>
+                  </select>
                 </div>
 
                 <div>

@@ -158,10 +158,13 @@ export default function StudentDetailPage({ params }: { params: Promise<{ id: st
 
         <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
-            <StudentAvatar student={student} size="lg" />
+            <StudentAvatar student={student} size="xl" />
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
                 <h1 className="font-display text-2xl font-bold tracking-tight">{student.name}</h1>
+                <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 border border-primary/20 px-2.5 py-0.5 text-xs font-bold text-primary">
+                  {student.gender === "female" ? "Female 👧" : "Male 👦"}
+                </span>
                 <RiskBadge level={level} />
                 <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
                   {displayClassification}

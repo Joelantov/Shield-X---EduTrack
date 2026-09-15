@@ -14,6 +14,7 @@ from ..services.intervention_service import (
 from ..services.alert_service import get_smart_alerts, mark_alert_as_reviewed, get_class_learning_heatmap
 from ..services.copilot_service import answer_copilot_query
 from ..services.auth_service import register_user, authenticate_user, seed_default_users
+from ..services.ml_service import run_full_model_evaluation, predict_gap
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
 
@@ -243,3 +244,16 @@ def submit_reassessment(student_id):
     answers = payload.get("answers", {})
     result = submit_reassessment_answers(student_id, answers)
     return jsonify({"result": result}), 200
+
+# FEATURE 5: ML Model Analyzer & Inspection Endpoints
+@api_bp.route("/ml/evaluation", methods=["GET"])
+def get_ml_evaluation():
+    eval_results = run_full_model_evaluation()
+    return jsonify(eval_results), 200
+
+@api_bp.route("/ml/predict", methods=["POST"])
+def predict_ml_student():
+    payload = request.get_json() or {}
+    result = predict_gap(payload)
+    return jsonify(result), 200
+

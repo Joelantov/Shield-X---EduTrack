@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   LogOut,
+  BrainCircuit,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/lib/auth"
@@ -21,6 +22,7 @@ const NAV = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/students", label: "Students", icon: Users },
   { href: "/interventions", label: "Interventions", icon: ClipboardList },
+  { href: "/ml-model", label: "AI Model Inspector", icon: BrainCircuit },
 ]
 
 function isActive(pathname: string, href: string) {

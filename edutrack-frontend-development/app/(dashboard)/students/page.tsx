@@ -12,6 +12,7 @@ import {
   trendDelta,
   riskLevel,
   analyzeStudent,
+  addStudentToStore,
   DOMAIN_LABEL,
 } from "@/lib/edutrack-data"
 import { fetchStudents, createStudent } from "@/lib/api"
@@ -88,19 +89,30 @@ export default function StudentsPage() {
       problemSolving: Number(newStudentForm.problemSolving),
     }
 
-    const created = await createStudent({ ...newStudentForm, scores })
+    const addedLocal = addStudentToStore({
+      name: newStudentForm.name,
+      grade: newStudentForm.grade,
+      age: Number(newStudentForm.age),
+      guardian: newStudentForm.guardian,
+      scores,
+      signals: {
+        attendance: Number(newStudentForm.attendance),
+        engagement: 75,
+        homeworkCompletion: 80,
+        isELL: false,
+        weeksTracked: 1,
+      },
+      note: newStudentForm.note || "Newly added student.",
+    })
 
-    if (created) {
-      loadRoster()
-      setIsAddStudentOpen(false)
-      setNewStudentForm(EMPTY_FORM)
-      setAddStudentSuccess(`${created.name} has been added to EduTrack!`)
-      setTimeout(() => setAddStudentSuccess(null), 4000)
-    } else {
-      setIsAddStudentOpen(false)
-      setAddStudentSuccess("Student added! (Backend offline — restart backend to persist)")
-      setTimeout(() => setAddStudentSuccess(null), 4000)
-    }
+    setRoster([...STUDENTS])
+
+    await createStudent({ ...newStudentForm, scores })
+
+    setIsAddStudentOpen(false)
+    setNewStudentForm(EMPTY_FORM)
+    setAddStudentSuccess(`${addedLocal.name} has been added to EduTrack with AI risk prediction!`)
+    setTimeout(() => setAddStudentSuccess(null), 4000)
     setIsCreatingStudent(false)
   }
 

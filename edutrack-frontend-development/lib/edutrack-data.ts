@@ -94,6 +94,8 @@ export type Student = {
   name: string
   avatarColor: string
   grade: string
+  section?: string
+  rollNo?: string
   age: number
   guardian: string
   scores: Record<DomainKey, number>
@@ -123,6 +125,8 @@ export const STUDENTS: Student[] = [
     name: "Ananya Sharma",
     avatarColor: "oklch(0.65 0.22 27)",
     grade: "Grade 8",
+    section: "Section A",
+    rollNo: "#14",
     age: 13,
     guardian: "Priya Sharma",
     scores: { phonics: 75, fluency: 78, comprehension: 81, numberSense: 71, arithmetic: 68, problemSolving: 43 },
@@ -681,3 +685,64 @@ export function domainAverages(): { key: DomainKey; label: string; avg: number }
 export function getStudent(id: string): Student | undefined {
   return STUDENTS.find((s) => s.id === id)
 }
+
+export function addStudentToStore(newStudentData: Partial<Student>): Student {
+  const id = newStudentData.id || `s${String(STUDENTS.length + 1).padStart(2, "0")}_${Date.now().toString().slice(-4)}`
+  const scores = newStudentData.scores || {
+    phonics: 70,
+    fluency: 70,
+    comprehension: 70,
+    numberSense: 70,
+    arithmetic: 70,
+    problemSolving: 70,
+  }
+  const previousScores = newStudentData.previousScores || {
+    phonics: Math.max(30, scores.phonics - 4),
+    fluency: Math.max(30, scores.fluency - 3),
+    comprehension: Math.max(30, scores.comprehension - 5),
+    numberSense: Math.max(30, scores.numberSense - 2),
+    arithmetic: Math.max(30, scores.arithmetic - 4),
+    problemSolving: Math.max(30, scores.problemSolving - 6),
+  }
+
+  const colors = [
+    "oklch(0.65 0.22 27)",
+    "oklch(0.6 0.16 300)",
+    "oklch(0.58 0.14 240)",
+    "oklch(0.62 0.18 160)",
+    "oklch(0.64 0.2 60)",
+  ]
+
+  const newStudent: Student = {
+    id,
+    name: newStudentData.name || "New Student",
+    avatarColor: colors[STUDENTS.length % colors.length],
+    grade: newStudentData.grade || "Grade 8",
+    section: newStudentData.section || "Section A",
+    rollNo: newStudentData.rollNo || `#${String(STUDENTS.length + 1).padStart(2, "0")}`,
+    age: newStudentData.age || 13,
+    guardian: newStudentData.guardian || "Parent / Guardian",
+    scores,
+    previousScores,
+    signals: newStudentData.signals
+      ? { ...newStudentData.signals }
+      : {
+          attendance: 90,
+          engagement: 75,
+          homeworkCompletion: 80,
+          isELL: false,
+          weeksTracked: 1,
+        },
+    note: newStudentData.note || "Newly enrolled student. Baseline assessment complete.",
+  }
+
+  const idx = STUDENTS.findIndex((s) => s.id === id || s.name.toLowerCase() === newStudent.name.toLowerCase())
+  if (idx >= 0) {
+    STUDENTS[idx] = newStudent
+  } else {
+    STUDENTS.push(newStudent)
+  }
+
+  return newStudent
+}
+

@@ -13,12 +13,57 @@ from ..services.intervention_service import (
 )
 from ..services.alert_service import get_smart_alerts, mark_alert_as_reviewed, get_class_learning_heatmap
 from ..services.copilot_service import answer_copilot_query
+from ..services.auth_service import register_user, authenticate_user, seed_default_users
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
+
+# Seed default users on blueprint initialization
+try:
+    seed_default_users()
+except Exception:
+    pass
 
 @api_bp.route("/health", methods=["GET"])
 def health_check():
     return jsonify({"status": "healthy", "service": "LearnPulse AI Backend"}), 200
+
+# MONGODB AUTHENTICATION ENDPOINTS
+@api_bp.route("/auth/register", methods=["POST"])
+def auth_register():
+    payload = request.get_json() or {}
+    email = payload.get("email", "").strip()
+    password = payload.get("password", "").strip()
+    name = payload.get("name", "").strip() or "User"
+    role = payload.get("role", "teacher")
+    student_id = payload.get("student_id")
+
+    if not email or not password:
+        return jsonify({"error": "Email and password are required"}), 400
+
+    try:
+        user = register_user(email, password, name, role, student_id)
+        return jsonify({"message": "User registered successfully in MongoDB", "user": user}), 201
+    except ValueError as ve:
+        return jsonify({"error": str(ve)}), 400
+    except Exception as e:
+        return jsonify({"error": f"Registration error: {str(e)}"}), 500
+
+@api_bp.route("/auth/login", methods=["POST"])
+def auth_login():
+    payload = request.get_json() or {}
+    email = payload.get("email", "").strip()
+    password = payload.get("password", "").strip()
+
+    if not email or not password:
+        return jsonify({"error": "Email and password are required"}), 400
+
+    try:
+        user = authenticate_user(email, password)
+        return jsonify({"message": "Authentication successful", "user": user}), 200
+    except ValueError as ve:
+        return jsonify({"error": str(ve)}), 401
+    except Exception as e:
+        return jsonify({"error": f"Authentication error: {str(e)}"}), 500
 
 @api_bp.route("/students", methods=["GET"])
 def list_students():

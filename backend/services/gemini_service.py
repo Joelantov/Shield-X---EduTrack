@@ -91,7 +91,7 @@ def generate_personalized_intervention(analysis_data: dict) -> dict:
         from google import genai
         from google.genai import types
 
-        client = genai.Client(api_key=api_key, http_options={"timeout": 8000})
+        client = genai.Client(api_key=api_key)
 
         prompt = f"""
 You are an expert educational AI coach for early learning intervention in LearnPulse AI.
@@ -144,21 +144,27 @@ Return ONLY a valid JSON object with the following EXACT structure:
 }}
 """
 
-        response = client.models.generate_content(
-            model='gemini-2.5-flash',
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                temperature=0.3
-            )
-        )
+        model_candidates = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.5-flash"]
+        for model_name in model_candidates:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json",
+                        temperature=0.3
+                    )
+                )
+                if response and response.text:
+                    content_text = response.text.strip()
+                    parsed_json = json.loads(content_text)
+                    parsed_json["source"] = "gemini_api"
+                    return parsed_json
+            except Exception as m_err:
+                logger.warning(f"Gemini API model {model_name} error: {m_err}")
 
-        content_text = response.text.strip()
-        parsed_json = json.loads(content_text)
-        parsed_json["source"] = "gemini_api"
-        return parsed_json
+        return {**FALLBACK_INTERVENTION, "source": "fallback_model_loop_exhausted"}
 
     except Exception as e:
         logger.error(f"Error calling Gemini API: {e}. Utilizing safe backend fallback.")
         return {**FALLBACK_INTERVENTION, "source": f"fallback_api_error ({str(e)})"}
-

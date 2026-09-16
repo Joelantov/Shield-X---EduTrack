@@ -126,7 +126,7 @@ export const STUDENTS: Student[] = [
     id: "s00",
     name: "Ananya Sharma",
     gender: "female",
-    avatarUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=250&auto=format&fit=crop&q=80",
+    avatarUrl: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=250&auto=format&fit=crop&q=80",
     avatarColor: "oklch(0.65 0.22 27)",
     grade: "Grade 8",
     section: "Section A",
@@ -156,7 +156,7 @@ export const STUDENTS: Student[] = [
     id: "s02",
     name: "Sofia Alvarez",
     gender: "female",
-    avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=250&auto=format&fit=crop&q=80",
+    avatarUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=250&auto=format&fit=crop&q=80",
     avatarColor: "oklch(0.6 0.16 300)",
     grade: "Grade 8",
     age: 14,
@@ -184,7 +184,7 @@ export const STUDENTS: Student[] = [
     id: "s04",
     name: "Chen Wei",
     gender: "male",
-    avatarUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=250&auto=format&fit=crop&q=80",
+    avatarUrl: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=250&auto=format&fit=crop&q=80",
     avatarColor: "oklch(0.6 0.15 160)",
     grade: "Grade 8",
     age: 14,
@@ -198,7 +198,7 @@ export const STUDENTS: Student[] = [
     id: "s05",
     name: "Maya Johnson",
     gender: "female",
-    avatarUrl: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=250&auto=format&fit=crop&q=80",
+    avatarUrl: "https://images.unsplash.com/photo-1588072432836-e10032774350?w=250&auto=format&fit=crop&q=80",
     avatarColor: "oklch(0.64 0.16 60)",
     grade: "Grade 8",
     age: 13,
@@ -212,7 +212,7 @@ export const STUDENTS: Student[] = [
     id: "s06",
     name: "Noah Williams",
     gender: "male",
-    avatarUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=250&auto=format&fit=crop&q=80",
+    avatarUrl: "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=250&auto=format&fit=crop&q=80",
     avatarColor: "oklch(0.55 0.18 20)",
     grade: "Grade 8",
     age: 14,
@@ -226,7 +226,7 @@ export const STUDENTS: Student[] = [
     id: "s07",
     name: "Priya Patel",
     gender: "female",
-    avatarUrl: "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=250&auto=format&fit=crop&q=80",
+    avatarUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=250&auto=format&fit=crop&q=80",
     avatarColor: "oklch(0.6 0.17 340)",
     grade: "Grade 8",
     age: 13,
@@ -254,7 +254,7 @@ export const STUDENTS: Student[] = [
     id: "s09",
     name: "Emma Schmidt",
     gender: "female",
-    avatarUrl: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=250&auto=format&fit=crop&q=80",
+    avatarUrl: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=250&auto=format&fit=crop&q=80",
     avatarColor: "oklch(0.62 0.14 280)",
     grade: "Grade 8",
     age: 13,
@@ -268,7 +268,7 @@ export const STUDENTS: Student[] = [
     id: "s10",
     name: "Kwame Mensah",
     gender: "male",
-    avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=250&auto=format&fit=crop&q=80",
+    avatarUrl: "https://images.unsplash.com/photo-1567059733004-946115865c3e?w=250&auto=format&fit=crop&q=80",
     avatarColor: "oklch(0.58 0.16 45)",
     grade: "Grade 8",
     age: 14,
@@ -282,7 +282,7 @@ export const STUDENTS: Student[] = [
     id: "s11",
     name: "Hana Suzuki",
     gender: "female",
-    avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=250&auto=format&fit=crop&q=80",
+    avatarUrl: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=250&auto=format&fit=crop&q=80",
     avatarColor: "oklch(0.62 0.15 350)",
     grade: "Grade 8",
     age: 13,
@@ -296,7 +296,7 @@ export const STUDENTS: Student[] = [
     id: "s12",
     name: "Oliver Brown",
     gender: "male",
-    avatarUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=250&auto=format&fit=crop&q=80",
+    avatarUrl: "https://images.unsplash.com/photo-1544717302-de2939b7ef71?w=250&auto=format&fit=crop&q=80",
     avatarColor: "oklch(0.55 0.13 220)",
     grade: "Grade 8",
     age: 14,
@@ -722,19 +722,21 @@ export function addStudentToStore(newStudentData: Partial<Student>): Student {
   const gender: "female" | "male" = newStudentData.gender || (femaleNames.some(fn => firstNameLower.includes(fn)) || name.endsWith("a") || name.endsWith("i") ? "female" : "male")
 
   const femaleAvatars = [
-    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=250&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=250&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=250&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=250&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=250&auto=format&fit=crop&q=80"
+    "https://images.unsplash.com/photo-1544717305-2782549b5136?w=250&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=250&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1588072432836-e10032774350?w=250&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=250&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=250&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=250&auto=format&fit=crop&q=80"
   ]
 
   const maleAvatars = [
-    "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=250&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=250&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=250&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=250&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=250&auto=format&fit=crop&q=80"
+    "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=250&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=250&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=250&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=250&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=250&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1567059733004-946115865c3e?w=250&auto=format&fit=crop&q=80"
   ]
 
   const avatarPool = gender === "female" ? femaleAvatars : maleAvatars
